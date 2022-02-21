@@ -2,13 +2,14 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
+	"os"
 	"sort"
 	"strconv"
 	"time"
 
 	"github.com/meghashyamc/calorie-insights/services/parsefile"
+	"github.com/olekukonko/tablewriter"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -199,9 +200,15 @@ func validateCaloriesEntry(entry map[string]string) (string, int, error) {
 	return date, calories, nil
 }
 func (w *weeklyAvgDataList) print() {
+	table := tablewriter.NewWriter(os.Stdout)
+
+	table.SetHeader([]string{"Week Start Date", "Week End Date", "Average Calories"})
+
 	for _, weekData := range w.data {
-		fmt.Println(fmt.Sprintf("%+v", weekData))
+		row := []string{weekData.weekStartDate, weekData.weekEndDate, strconv.Itoa(weekData.avgData)}
+		table.Append(row)
 	}
+	table.Render()
 
 }
 
