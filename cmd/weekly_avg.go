@@ -220,5 +220,5 @@ func getCSVForWeeklyAvg() (string, error) {
 }
 
 func setupWeeklyAvgCmd() {
-	csvForWeeklyAvg = weeklyAvgCmd.Flags().StringP("csv", "f", "", "--csv <CSV to use>")
+	csvForWeeklyAvg = weeklyAvgCmd.Flags().StringP("csv", "f", "", "the path to the CSV to use (optional if a CSV has already been added)")
 }

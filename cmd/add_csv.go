@@ -43,5 +43,5 @@ func getAlreadyAddedCSV() (string, error) {
 }
 
 func setupAddCSVCmd() {
-	csvForAddCSV = addCSVCmd.Flags().StringP("csv", "f", "", "--csv <CSV to use>")
+	csvForAddCSV = addCSVCmd.Flags().StringP("csv", "f", "", "the path to the CSV to be added")
 }
