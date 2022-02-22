@@ -38,10 +38,6 @@ func addCalorieCSV(cmd *cobra.Command, args []string) {
 
 }
 
-func getAlreadyAddedCSV() (string, error) {
-	return "calorie_counter.csv", nil
-}
-
 func setupAddCSVCmd() {
 	csvForAddCSV = addCSVCmd.Flags().StringP("csv", "f", "", "the path to the CSV to be added")
 }

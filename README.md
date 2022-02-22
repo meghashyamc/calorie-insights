@@ -5,7 +5,7 @@
 CLI to gain insights from a calorie counter CSV file. What kind of insights?
 
 * Get weekly average calories consumed 
-* Get percantage of calories contributed by specific sources (TO BE IMPLEMENTED)
+* Get percantage of calories contributed by specific sources 
 
 * The file that's used for insights must be of this format:
 

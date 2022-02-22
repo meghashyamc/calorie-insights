@@ -2,22 +2,14 @@ package cmd
 
 import (
 	"errors"
-	"io/ioutil"
 	"os"
 	"sort"
 	"strconv"
 	"time"
 
-	"github.com/meghashyamc/calorie-insights/services/parsefile"
 	"github.com/olekukonko/tablewriter"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-)
-
-const (
-	headerPrefix         = "header"
-	calorieCSVTimeLayout = "1/02/06 3:04 PM"
-	reqDateLayout        = "2006-01-02"
 )
 
 var csvForWeeklyAvg *string
@@ -41,24 +33,16 @@ var weeklyAvgCmd = &cobra.Command{
 
 func getWeeklyAverage(cmd *cobra.Command, args []string) {
 
-	csvToUse, err := getCSVForWeeklyAvg()
+	csvToUse, err := getCSV(csvForWeeklyAvg)
 	if err != nil {
 		return
 	}
-	fileBytes, err := ioutil.ReadFile(csvToUse)
-	if err != nil {
-		log.WithFields(log.Fields{"err": err.Error()}).Error("could not read from passed filepath")
-		return
-	}
-
-	newCSV := parsefile.NewCSV("", fileBytes)
-
-	fileData, err := newCSV.Read()
+	csvFileData, err := getCSVFileData("", csvToUse)
 	if err != nil {
 		return
 	}
 
-	gottenWeeklyAvgData, err := getWeeklyAvgData(fileData)
+	gottenWeeklyAvgData, err := getWeeklyAvgData(csvFileData)
 	if err != nil {
 		return
 	}
@@ -209,20 +193,6 @@ func (w *weeklyAvgDataList) print() {
 		table.Append(row)
 	}
 	table.Render()
-
-}
-
-func getCSVForWeeklyAvg() (string, error) {
-
-	if *csvForWeeklyAvg == "" {
-		csvPath, err := getAlreadyAddedCSV()
-		if err != nil {
-			log.WithFields(log.Fields{"err": err.Error()}).Error("getting weekly average requires a CSV file path argument or an already added CSV")
-			return "", err
-		}
-		csvForWeeklyAvg = &csvPath
-	}
-	return *csvForWeeklyAvg, nil
 
 }
 

@@ -24,7 +24,9 @@ func init() {
 
 	setupWeeklyAvgCmd()
 	setupAddCSVCmd()
+	setupCalorieSourcesCmd()
 	rootCmd.AddCommand(weeklyAvgCmd)
 	rootCmd.AddCommand(addCSVCmd)
+	rootCmd.AddCommand(calorieSourcesCmd)
 
 }
