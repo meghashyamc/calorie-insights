@@ -2,11 +2,13 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"sort"
 	"strconv"
 	"time"
 
+	"github.com/guptarohit/asciigraph"
 	"github.com/olekukonko/tablewriter"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -187,12 +189,14 @@ func (w *weeklyAvgDataList) print() {
 	table := tablewriter.NewWriter(os.Stdout)
 
 	table.SetHeader([]string{"Week Start Date", "Week End Date", "Average Calories"})
-
+	graphData := []float64{}
 	for _, weekData := range w.data {
+		graphData = append(graphData, float64(weekData.avgData))
 		row := []string{weekData.weekStartDate, weekData.weekEndDate, strconv.Itoa(weekData.avgData)}
 		table.Append(row)
 	}
 	table.Render()
+	fmt.Println(asciigraph.Plot(graphData, asciigraph.Height(10)))
 
 }
 

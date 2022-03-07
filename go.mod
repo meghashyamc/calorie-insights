@@ -3,6 +3,7 @@ module github.com/meghashyamc/calorie-insights
 go 1.17
 
 require (
+	github.com/guptarohit/asciigraph v0.5.3
 	github.com/joho/godotenv v1.4.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/sirupsen/logrus v1.8.1
